@@ -1,0 +1,33 @@
+# ---------------------------------------------------------------
+# Licensed publisher material. NEVER commit these to a public repo.
+# Oxford University Press instructor resources are released to
+# validated adopting instructors; nothing in OUP's terms grants
+# public redistribution. Distribute these through Canvas instead.
+# ---------------------------------------------------------------
+*.pptx
+*.ppt
+*.potx
+*.docx
+*.doc
+*.pdf
+visual_crops/
+**/Case_Studies/
+**/PDB_Exercises/
+**/PreClass_Decks/
+
+# Assessment material - keep out of a public repo for exam security
+*MCQ*
+*mcq*
+*_KEY*
+*answer*key*
+
+# Executed copies (keep teaching notebooks output-free)
+*RUNCHECK*
+*-checkpoint.ipynb
+.ipynb_checkpoints/
+_fig/
+
+# OS / editor
+.DS_Store
+__pycache__/
+.venv/
