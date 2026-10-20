@@ -1,0 +1,56 @@
+parent_fragment,replacement_name,replacement_smiles,frequency,rank,n_better,n_similar,n_worse,pct_not_worse,delta_logP,delta_tPSA,delta_MW
+carboxylic acid,methyl ester,COC(=O)[*:1],4530,1,1238,2353,939,79.3,0.09,-11.0,14.03
+carboxylic acid,primary amide,NC(=O)[*:1],2781,2,1000,1334,447,83.9,-0.6,5.79,-0.99
+carboxylic acid,ethyl ester,CCOC(=O)[*:1],2449,3,703,1024,722,70.5,0.48,-11.0,28.06
+carboxylic acid,hydroxyl,O[*:1],1626,4,604,793,229,85.9,0.01,-17.07,-28.01
+carboxylic acid,methyl,C[*:1],1478,5,620,616,242,83.6,0.61,-37.3,-29.98
+carboxylic acid,hydroxymethyl,OC[*:1],1144,6,395,546,203,82.3,-0.2,-17.07,-13.98
+carboxylic acid,acetic acid (homologated),O=C(O)C[*:1],956,7,253,530,173,81.9,-0.08,0.0,14.02
+carboxylic acid,nitrile,N#C[*:1],877,8,346,353,178,79.7,0.17,-13.51,-19.0
+carboxylic acid,N-methyl amide,CNC(=O)[*:1],818,9,298,412,108,86.8,-0.34,-8.2,13.04
+carboxylic acid,methoxy,CO[*:1],788,10,331,334,123,84.4,0.31,-28.07,-13.98
+carboxylic acid,amine,N[*:1],721,11,201,368,152,78.9,-0.51,-11.28,-29.0
+carboxylic acid,"N,N-dimethyl amide",CN(C)C(=O)[*:1],692,12,230,331,131,81.1,0.0,-16.99,27.07
+carboxylic acid,hydroxamic acid,O=C(NO)[*:1],654,13,440,157,57,91.3,-0.58,12.03,15.02
+carboxylic acid,phenyl,c1ccc([*:1])cc1,635,14,271,262,102,83.9,1.96,-37.3,32.09
+carboxylic acid,fluorine,F[*:1],625,15,265,259,101,83.8,0.44,-37.3,-26.02
+carboxylic acid,chlorine,Cl[*:1],604,16,276,240,88,85.4,0.95,-37.3,-9.57
+carboxylic acid,tetrazol-5-yl,n1n[nH]c([*:1])n1,545,17,105,325,115,78.9,-0.52,17.16,24.03
+carboxylic acid,trifluoromethyl,FC(F)(F)[*:1],503,18,214,206,83,83.5,1.32,-37.3,23.98
+carboxylic acid,tetrazol-5-yl (tautomer),n1nc([*:1])n[nH]1,484,19,135,256,93,80.8,-0.51,17.16,24.03
+carboxylic acid,nitro,O=[N+]([O-])[*:1],384,20,166,167,51,86.7,0.21,5.84,0.99
+carboxylic acid,sulfonamide,NS(=O)(=O)[*:1],382,21,157,168,57,85.1,-1.05,22.86,35.07
+carboxylic acid,acylsulfonamide,CS(=O)(=O)NC(=O)[*:1],369,22,36,226,107,71.0,-1.01,25.94,77.11
+carboxylic acid,propanoic acid (homologated),O=C(O)CC[*:1],348,23,112,191,45,87.1,0.32,0.0,28.06
+carboxylic acid,N-(2-hydroxyethyl) amide,O=C(NCCO)[*:1],341,24,148,142,51,85.0,-0.98,12.03,43.07
+carboxylic acid,acetamido,CC(=O)N[*:1],331,25,111,160,60,81.9,0.26,-8.2,13.04
+carboxylic acid,bromine,Br[*:1],330,26,153,125,52,84.2,1.06,-37.3,34.89
+carboxylic acid,methylsulfonyl,CS(=O)(=O)[*:1],327,27,132,141,54,83.5,-0.43,-3.16,34.08
+carboxylic acid,morpholine amide,O=C(N1CCOCC1)[*:1],315,28,93,151,71,77.5,-0.23,-7.76,69.1
+carboxylic acid,acetyl,CC(=O)[*:1],296,29,120,118,58,80.4,0.5,-20.23,-1.97
+carboxylic acid,dimethylamino,CN(C)[*:1],283,30,93,116,74,73.9,0.08,-34.06,-0.94
+primary amide,carboxylic acid,O=C(O)[*:1],2781,1,447,1334,1000,64.0,0.6,-5.79,0.99
+primary amide,nitrile,N#C[*:1],2384,2,586,1189,609,74.5,1.04,-19.3,-18.01
+primary amide,N-methyl amide,CNC(=O)[*:1],2202,3,192,1591,419,81.0,0.26,-13.99,14.03
+primary amide,hydroxyl,O[*:1],1622,4,398,1003,221,86.4,0.11,-22.86,-27.02
+primary amide,methyl ester,COC(=O)[*:1],1269,5,259,699,311,75.5,0.68,-16.79,15.02
+primary amide,methyl,C[*:1],1238,6,361,668,209,83.1,1.21,-43.09,-28.99
+primary amide,"N,N-dimethyl amide",CN(C)C(=O)[*:1],1112,7,128,590,394,64.6,0.61,-22.78,28.06
+primary amide,hydroxymethyl,OC[*:1],1060,8,233,651,176,83.4,0.51,-22.86,-13.0
+primary amide,methoxy,CO[*:1],1003,9,235,554,214,78.7,0.91,-33.86,-12.99
+primary amide,fluorine,F[*:1],720,10,195,360,165,77.1,1.04,-43.09,-25.04
+primary amide,chlorine,Cl[*:1],669,11,262,281,126,81.2,1.55,-43.09,-8.58
+primary amide,amine,N[*:1],646,12,151,332,163,74.8,0.08,-17.07,-28.01
+primary amide,trifluoromethyl,FC(F)(F)[*:1],635,13,194,272,169,73.4,1.92,-43.09,24.97
+primary amide,ethyl ester,CCOC(=O)[*:1],612,14,146,344,122,80.1,1.08,-16.79,29.03
+primary amide,methylsulfonyl,CS(=O)(=O)[*:1],599,15,90,403,106,82.3,0.17,-8.95,35.06
+primary amide,acetamido,CC(=O)N[*:1],546,16,80,349,117,78.6,0.26,-13.99,14.03
+primary amide,N-(2-hydroxyethyl) amide,O=C(NCCO)[*:1],532,17,42,385,105,80.3,-0.38,6.24,44.05
+primary amide,phenyl,c1ccc([*:1])cc1,476,18,128,246,102,78.6,2.37,-43.09,33.07
+primary amide,morpholine amide,O=C(N1CCOCC1)[*:1],443,19,45,250,148,66.6,0.37,-13.55,70.09
+primary amide,acetyl,CC(=O)[*:1],441,20,112,235,94,78.7,1.1,-26.02,-0.98
+primary amide,N-ethyl amide,CCNC(=O)[*:1],438,21,65,269,104,76.3,0.65,-13.99,28.06
+primary amide,N-cyclopropyl amide,O=C(NC1CC1)[*:1],431,22,94,246,91,78.9,0.8,-13.99,40.06
+primary amide,sulfonamide,NS(=O)(=O)[*:1],382,23,72,232,78,79.6,-0.45,17.07,36.06
+primary amide,methanesulfonamido,CS(=O)(=O)N[*:1],359,24,58,225,76,78.8,0.27,3.08,50.08
+primary amide,bromine,Br[*:1],339,25,137,146,56,83.5,1.66,-43.09,35.88

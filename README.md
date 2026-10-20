@@ -105,6 +105,37 @@ chapters 17 and 18 — local versus global minima, combinatorial search cost,
 the Metropolis rule, shape complementarity and steric clash, enrichment,
 over-fitting — and they are not quantitative predictions of any real system.
 
+## Third-party data: SwissBioisostere
+
+The **L31 Bioisosterism** activity uses real matched-molecular-pair data from
+[SwissBioisostere](https://www.swissbioisostere.ch), from the Molecular
+Modelling Group of the SIB Swiss Institute of Bioinformatics and the
+University of Lausanne. The underlying data derive from ChEMBL 36.
+
+SwissBioisostere is made available under the
+[CC-BY 4.0 licence](https://creativecommons.org/licenses/by/4.0/).
+
+**Changes made:** retrieved 20 October 2026 through the SwissBioisostere web
+interface. Two single-attachment-point fragment queries were run, carboxylic
+acid `[*:1]C(=O)O` and primary amide `[*:1]C(=O)N`. The full result tables
+(7,714 and 6,955 replacements) were reduced to the highest-frequency entries,
+column names were shortened, and common chemical names were added. No values
+were altered and no structures were recomputed. The curated extract is in
+`data/` as both a Python module and a CSV.
+
+Please cite:
+
+> Cuozzo A., Daina A., Perez M.A.S., Michielin O., Zoete V. *SwissBioisostere:
+> molecular replacements for drug discovery guided by updated structural,
+> bioactivity and physico-chemical data accessible through a reshaped Web
+> interface.* Nucleic Acids Research, 2021.
+
+> Wirth M., Zoete V., Michielin O., Sauer W.H.B. *SwissBioisostere: a database
+> of molecular replacements for ligand design.* Nucleic Acids Research 2013,
+> 41(D1), D1137–D1143. doi:10.1093/nar/gks1059
+
+SIB does not endorse this course or its materials.
+
 ## Licence
 
 Code and written content: MIT (see `LICENSE`). If you reuse an activity in
