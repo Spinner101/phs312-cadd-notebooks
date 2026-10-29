@@ -32,6 +32,31 @@ minute). They are richer but slower, and are not required for class.
 | Conformational analysis | Relaxed torsion scan of a real molecule | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Spinner101/phs312-cadd-notebooks/blob/main/notebooks/PHS312_L23_Conformational_Analysis_Torsion_Scan.ipynb) |
 | QSAR | Building a Hansch equation from tabulated constants | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Spinner101/phs312-cadd-notebooks/blob/main/notebooks/PHS312_L29_L30_QSAR_Hansch_Equation.ipynb) |
 
+## Computational labs (RDKit and AutoDock Vina)
+
+Five lab notebooks put the lecture methods to work on real molecules, in the
+style of a lab manual: a numbered protocol with the reason for each step,
+checkpoints with expected ranges, calculation cards with step-by-step
+solutions, reporting standards, and an automatic lab report (.docx + .html)
+that collects every figure, table and calculation. The first cell installs
+RDKit, py3Dmol and Meeko from PyPI and the official AutoDock Vina 1.2.7
+binary (allow a few minutes). Every adapted source and dataset is listed with
+its licence in [`labs/SOURCES.md`](labs/SOURCES.md).
+
+| Lectures | Lab | What you do | Open |
+| --- | --- | --- | --- |
+| L23–L24 | Conformer ensembles | RDKit ETKDG conformers, MMFF94 minimization, RMSD pruning, torsion scan, Boltzmann populations | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Spinner101/phs312-cadd-notebooks/blob/main/labs/PHS312_L23_L24_Lab_Conformers.ipynb) |
+| L25–L26 | Docking with AutoDock Vina | PDB 3POZ (EGFR): receptor and ligand prep, box from the co-crystal ligand, redocking validation (RMSD ≤ 2 Å), a congeneric series, py3Dmol pose view | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Spinner101/phs312-cadd-notebooks/blob/main/labs/PHS312_L25_L26_Lab_Docking.ipynb) |
+| L27 | Fragments and de novo growth | BRICS decomposition and recombination, property and PAINS filters, ligand efficiency and LLE | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Spinner101/phs312-cadd-notebooks/blob/main/labs/PHS312_L27_Lab_Fragments_DeNovo.ipynb) |
+| L29–L30 | QSAR from real data | RDKit descriptors for ten cited EGFR inhibitors, Hansch-type regression, r², leave-one-out q² | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Spinner101/phs312-cadd-notebooks/blob/main/labs/PHS312_L29_L30_Lab_QSAR.ipynb) |
+| L31–L32 | Bioisosteres and prodrugs | SMARTS swaps, Crippen log P, TPSA, % ionized and log D, ester prodrug properties | [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/Spinner101/phs312-cadd-notebooks/blob/main/labs/PHS312_L31_L32_Lab_Bioisosteres_Prodrugs.ipynb) |
+
+Every lecture notebook now also has **calculation cards** (equation with each
+variable's role, units and source; a colour-matched case; a step-by-step
+solution with a unit check), an **Open calculator** panel laid out like the
+HP-15C, HP 35s, TI-30XS MultiView, TI-84 Plus CE and Casio fx-991EX, and a
+**Build and download my lab report** cell at the end.
+
 ## For students
 
 1. Click the badge for today's lecture. Sign in with your **Hampton Google
@@ -49,23 +74,6 @@ yourself.
 
 Your edits are not saved back to this repository. Use *File ▸ Save a copy in
 Drive* if you want to keep your work.
-
-## New: lecture notes in every lecture notebook
-
-Each lecture notebook (L22–L32) now opens with **lecture notes** between the
-prior-knowledge check and the timed activity, and the L28 review adds a concept
-map of L22–L27. The notes contain:
-
-* a plain-language summary of the lecture's key ideas, comparison tables and a key-terms table;
-* annotated 2D structures drawn in the notebook itself, in a fixed orientation, with related molecules on one template
-  (for example the acid bioisosteres in L31, each prodrug above its active drug in L32);
-* worked examples with collapsed solutions, and calculators that print every step
-  (Boltzmann populations, RMSD, ligand efficiency, enrichment factor, π and σ, log D, prodrug activation and others);
-* a reference table linking the idea to marketed drugs and their targets.
-
-The notes are original writing and drawings; no publisher text or figures are included. They are not graded:
-the activity, its questions and the report code are unchanged. The timed activity starts where each notebook's
-title note says.
 
 ## How each notebook is built
 
