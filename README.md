@@ -50,6 +50,23 @@ yourself.
 Your edits are not saved back to this repository. Use *File ▸ Save a copy in
 Drive* if you want to keep your work.
 
+## New: lecture notes in every lecture notebook
+
+Each lecture notebook (L22–L32) now opens with **lecture notes** between the
+prior-knowledge check and the timed activity, and the L28 review adds a concept
+map of L22–L27. The notes contain:
+
+* a plain-language summary of the lecture's key ideas, comparison tables and a key-terms table;
+* annotated 2D structures drawn in the notebook itself, in a fixed orientation, with related molecules on one template
+  (for example the acid bioisosteres in L31, each prodrug above its active drug in L32);
+* worked examples with collapsed solutions, and calculators that print every step
+  (Boltzmann populations, RMSD, ligand efficiency, enrichment factor, π and σ, log D, prodrug activation and others);
+* a reference table linking the idea to marketed drugs and their targets.
+
+The notes are original writing and drawings; no publisher text or figures are included. They are not graded:
+the activity, its questions and the report code are unchanged. The timed activity starts where each notebook's
+title note says.
+
 ## How each notebook is built
 
 * **Learning objectives** are tagged with a Bloom level and the syllabus

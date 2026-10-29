@@ -362,7 +362,7 @@ def pharmacophore(resn="THA", show=True):
     ring = [idx[n] for n in ("C1", "C2", "C3", "C4", "C5", "C6") if n in idx]
     pts = {}
     if ring: pts["aromatic centroid"] = X[ring].mean(axis=0)
-    for nm, lab in (("N15", "amine N (donor)"), ("N7", "ring N (acceptor)")):
+    for nm, lab in (("N15", "amine N (donor)"), ("N7", "ring N-H+ (donor)")):
         if nm in idx: pts[lab] = X[idx[nm]]
     names = list(pts)
     print("Three-point pharmacophore, measured in the crystal structure:")
