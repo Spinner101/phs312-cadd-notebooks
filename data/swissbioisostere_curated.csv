@@ -5,7 +5,7 @@ carboxylic acid,ethyl ester,CCOC(=O)[*:1],2449,3,703,1024,722,70.5,0.48,-11.0,28
 carboxylic acid,hydroxyl,O[*:1],1626,4,604,793,229,85.9,0.01,-17.07,-28.01
 carboxylic acid,methyl,C[*:1],1478,5,620,616,242,83.6,0.61,-37.3,-29.98
 carboxylic acid,hydroxymethyl,OC[*:1],1144,6,395,546,203,82.3,-0.2,-17.07,-13.98
-carboxylic acid,acetic acid (homologated),O=C(O)C[*:1],956,7,253,530,173,81.9,-0.08,0.0,14.02
+carboxylic acid,carboxymethyl (homologue),O=C(O)C[*:1],956,7,253,530,173,81.9,-0.08,0.0,14.02
 carboxylic acid,nitrile,N#C[*:1],877,8,346,353,178,79.7,0.17,-13.51,-19.0
 carboxylic acid,N-methyl amide,CNC(=O)[*:1],818,9,298,412,108,86.8,-0.34,-8.2,13.04
 carboxylic acid,methoxy,CO[*:1],788,10,331,334,123,84.4,0.31,-28.07,-13.98
@@ -21,7 +21,7 @@ carboxylic acid,tetrazol-5-yl (tautomer),n1nc([*:1])n[nH]1,484,19,135,256,93,80.
 carboxylic acid,nitro,O=[N+]([O-])[*:1],384,20,166,167,51,86.7,0.21,5.84,0.99
 carboxylic acid,sulfonamide,NS(=O)(=O)[*:1],382,21,157,168,57,85.1,-1.05,22.86,35.07
 carboxylic acid,acylsulfonamide,CS(=O)(=O)NC(=O)[*:1],369,22,36,226,107,71.0,-1.01,25.94,77.11
-carboxylic acid,propanoic acid (homologated),O=C(O)CC[*:1],348,23,112,191,45,87.1,0.32,0.0,28.06
+carboxylic acid,2-carboxyethyl (homologue),O=C(O)CC[*:1],348,23,112,191,45,87.1,0.32,0.0,28.06
 carboxylic acid,N-(2-hydroxyethyl) amide,O=C(NCCO)[*:1],341,24,148,142,51,85.0,-0.98,12.03,43.07
 carboxylic acid,acetamido,CC(=O)N[*:1],331,25,111,160,60,81.9,0.26,-8.2,13.04
 carboxylic acid,bromine,Br[*:1],330,26,153,125,52,84.2,1.06,-37.3,34.89
