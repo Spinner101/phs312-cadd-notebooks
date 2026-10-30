@@ -57,6 +57,18 @@ solution with a unit check), an **Open calculator** panel laid out like the
 HP-15C, HP 35s, TI-30XS MultiView, TI-84 Plus CE and Casio fx-991EX, and a
 **Build and download my lab report** cell at the end.
 
+## Interactive apps (no Colab needed)
+
+Some notebooks are also available as interactive web apps that run entirely in your browser: nothing to install, nothing sent
+anywhere. Each has the notebook's tools, figures, calculation cards, concept checks and lab-report download.
+
+| Session | App |
+|---|---|
+| L23 · Conformational Analysis I | https://spinner101.github.io/phs312-cadd-notebooks/apps/L23/ |
+| L24 · Conformational Analysis II | https://spinner101.github.io/phs312-cadd-notebooks/apps/L24/ |
+
+The first load takes 10–30 seconds. Download your lab report from the last tab before closing the tab. How the apps are built: `apps/README.md`.
+
 ## For students
 
 1. Click the badge for today's lecture. Sign in with your **Hampton Google
