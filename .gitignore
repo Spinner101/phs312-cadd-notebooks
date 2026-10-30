@@ -31,3 +31,6 @@ _fig/
 .DS_Store
 __pycache__/
 .venv/
+
+# built by GitHub Actions (apps/build_site.py)
+docs/
