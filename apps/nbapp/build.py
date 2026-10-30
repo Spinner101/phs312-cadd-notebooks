@@ -9,7 +9,7 @@ import html, json, os, re, sys
 from markdown_it import MarkdownIt
 from shiny import App, reactive, render, ui
 
-from .engine import Session, form_markdown, parse_params, png_uri, src, title_of, with_values
+from .engine import Raw, Session, form_markdown, is_setup, parse_params, png_uri, src, title_of, with_values
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 WWW = os.path.join(os.path.dirname(HERE), "www")
@@ -49,9 +49,18 @@ def output_html(r):
 
 
 # ---------------------------------------------------------------- notebook → structure
-def structure(nb_path):
+def _strip_images(s):
+    """Remove images pasted into Markdown cells (e.g. scanned textbook figures), keeping their captions."""
+    return re.sub(r'<img[^>]+src="data:image/[^"]+"[^>]*>', '<p class="small"><i>[Textbook figure: see the caption below and your textbook.]</i></p>', s)
+
+
+def structure(nb_path, strip_embedded_images=False):
     nb = json.load(open(nb_path, encoding="utf-8"))
     cells = nb["cells"]
+    if strip_embedded_images:
+        for c in cells:
+            if c["cell_type"] == "markdown":
+                c["source"] = _strip_images(src(c))
     title = src(next(c for c in cells if c["cell_type"] == "markdown")).split("\n")[0].lstrip("# ").strip()
     parts, cur = [], None
     for i, c in enumerate(cells):
@@ -64,7 +73,7 @@ def structure(nb_path):
             m = re.match(r"## (.+)", s)
             if m:
                 head = m.group(1).strip()
-                if re.match(r"(Lab report|Your results)", head):
+                if re.search(r"^(\d+\s*·\s*)?(Lab report|Your results|Summary and report code)", head):
                     cur = None
                     continue
                 cur = dict(title=re.sub(r"^Part\s+", "", head), md=[s.split("\n", 1)[1] if "\n" in s else ""],
@@ -74,7 +83,7 @@ def structure(nb_path):
                 cur["md"].append(s)
             continue
         first = s.split("\n")[0]
-        if "Set-up" in first or title_of(s).startswith("0.1") or cur is None:
+        if is_setup(s) or cur is None:
             continue
         if re.search(r'gb\.answer\("([\w-]+)"', s):
             cur["items"].append(("question", re.search(r'gb\.answer\("([\w-]+)"', s).group(1), i))
@@ -97,6 +106,7 @@ body{background:#f6f8fb;color:#16202b}
 .nbq{border-color:#f1b9a3;background:#fffaf7}.nbq h4{font-size:1rem;color:#c2410c;margin:0 0 4px}
 .nbcard{border-color:#e9b44c;background:#fffdf7}
 .nbfig{max-width:100%;height:auto;display:block;margin:8px auto}
+.nbtable{overflow-x:auto;margin:6px 0}.nbtable table{font-size:.85rem}
 pre.nbout{background:#f8fafc;border:1px dashed #cbd5e1;padding:8px;font-size:.82rem;white-space:pre-wrap}
 .nberr{color:#b91c1c;font-size:.9rem}
 .chip{display:inline-block;font-size:.72rem;font-weight:600;color:#c2410c;border:1px solid #c2410c;border-radius:9px;padding:0 6px;margin-left:6px}
@@ -128,8 +138,11 @@ def chip(slos):
     return ui.span(" · ".join(slos), class_="chip") if slos else ""
 
 
-def make_app(nb_path, course=""):
-    title, cells, parts = structure(nb_path)
+def make_app(nb_path, course="", strip_embedded_images=None):
+    """strip_embedded_images: None = strip only when running in a browser (Shinylive, i.e. a published site)."""
+    if strip_embedded_images is None:
+        strip_embedded_images = IN_BROWSER
+    title, cells, parts = structure(nb_path, strip_embedded_images)
     probe = Session(nb_path)                 # read item bank and cards once to lay out the page
     items, cards = probe.gb.items if probe.gb else {}, probe.cards
 
@@ -169,12 +182,14 @@ def make_app(nb_path, course=""):
             return ui.input_select(iid, lab, ch, selected=str(p["default"]))
         if k in ("number", "integer"):
             return ui.input_numeric(iid, lab, value=p["default"])
-        return ui.input_text(iid, lab, value=str(p["default"]))
+        return ui.input_text(iid, lab, value=str(p["default"]), width="100%")
 
     def tool_ui(code, i):
         t = title_of(code) or "Tool"
         ps = parse_params(code)
-        return ui.div(ui.h4(t), md(form_markdown(code)),
+        hint = md("Change the values below; the output updates. Text boxes take Python values, e.g. `[\"MRX\", \"piY\"]`.") \
+            if any(p.get("edit") and p["kind"] == "literal" for p in ps) else ""
+        return ui.div(ui.h4(t), md(form_markdown(code)), hint,
                       ui.layout_columns(*[param_input(i, p) for p in ps], col_widths=[4] * len(ps)),
                       ui.output_ui("to_%d" % i), class_="nbtool")
 
@@ -193,11 +208,13 @@ def make_app(nb_path, course=""):
             body.append({"question": q_ui, "card": card_ui, "tool": tool_ui, "static": static_ui}[kind](x, i))
         if len(body) > 1:
             panels.append(ui.nav_panel(re.sub(r"\s*[-—–]\s*", " · ", p["title"], count=1), *body))
-    panels.append(ui.nav_panel(
+    has_gb = probe.gb is not None
+    has_rep = probe.ns.get("REPORT") is not None
+    if has_gb or has_rep: panels.append(ui.nav_panel(
         "Results and lab report",
         ui.h3("Your results"),
-        ui.input_action_button("summary", "Show my performance and report code", class_="btn-primary"),
-        ui.output_ui("summary_out"),
+        ui.input_action_button("summary", "Show my performance and report code", class_="btn-primary") if has_gb else "",
+        ui.output_ui("summary_out") if has_gb else "",
         ui.hr(), ui.h3("Lab report"),
         ui.p("Every figure you displayed, every card you solved and your first answer to each check were collected. "
              "Add your name and a short discussion, then download."),
@@ -210,6 +227,9 @@ def make_app(nb_path, course=""):
         ui.head_content(ui.tags.style(CSS), ui.HTML(KATEX_JS)),
         ui.div(ui.h1(title), ui.div(course + " · interactive version of the Colab notebook · " + ("runs in your browser; nothing is sent anywhere" if IN_BROWSER else "runs on this computer"), class_="sub"),
                class_="apphead"),
+        (ui.div(ui.HTML("<b>The notebook's set-up step failed:</b> <code>%s</code>. Some tools below will not work. "
+                        "Reload the page; if it persists, tell your instructor." % html.escape((probe.setup_output or {}).get("error", ""))),
+                class_="nberr", style="margin:0 0 10px") if (probe.setup_output or {}).get("error") else ""),
         ui.navset_pill_list(*panels, widths=(2, 10)),
         title=title)
 
@@ -220,13 +240,16 @@ def make_app(nb_path, course=""):
         # "Run all" once, in notebook order, so a cell that uses an earlier cell's results works whichever
         # tab a student opens first. Figures from this pass are not added to the student's report.
         static_res, seen = {}, set()
-        rep, S.ns["REPORT"] = S.ns.get("REPORT"), None
+        rep = S.ns.get("REPORT")
+        if rep is not None:
+            S.ns["REPORT"] = None
         for kind, x, i in all_items:
             if kind == "static":
                 static_res[i] = S.run(x)
             elif kind == "tool":
                 S.run(x)
-        S.ns["REPORT"] = rep
+        if rep is not None:
+            S.ns["REPORT"] = rep
 
         def bind_tool(code, i):
             ps = parse_params(code)
@@ -238,6 +261,8 @@ def make_app(nb_path, course=""):
                     if p["kind"] == "choice":
                         orig = {str(x): x for x in p["choices"]}
                         v = orig.get(v, v)
+                    elif p["kind"] == "literal":
+                        v = Raw(v)
                     elif p["kind"] == "integer" and v is not None:
                         v = int(v)
                     elif p["kind"] == "slider" and float(v).is_integer() and isinstance(p["default"], int):

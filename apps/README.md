@@ -7,10 +7,20 @@ cards ("Solve step by step"), concept checks (same feedback as the notebook), pe
 all there. Python runs inside the student's browser through Shinylive (Pyodide), so there is no server and nothing to install;
 answers stay in the open tab.
 
-| App | Notebook |
+| App | Session |
 |---|---|
-| `apps/L23/` on the site | `notebooks/PHS312_L23_Conformational_Analysis_I.ipynb` |
-| `apps/L24/` on the site | `notebooks/PHS312_L24_Conformational_Analysis_II.ipynb` |
+| `apps/L22/` on the site | Computer-Aided Drug Design: An Overview |
+| `apps/L23/` on the site | Conformational Analysis I |
+| `apps/L24/` on the site | Conformational Analysis II |
+| `apps/L25/` on the site | Molecular Docking Studies I |
+| `apps/L26/` on the site | Molecular Docking Studies II |
+| `apps/L27/` on the site | De Novo Drug Design |
+| `apps/L28/` on the site | Exam 3 Review Session |
+| `apps/L29/` on the site | QSAR I |
+| `apps/L30/` on the site | QSAR II |
+| `apps/L29-L30-Hansch/` on the site | Building a Hansch Equation (in-class activity) |
+| `apps/L31/` on the site | Bioisosterism |
+| `apps/L32/` on the site | Prodrugs |
 
 ## One-time setup
 Repository **Settings → Pages → Build and deployment → Source: GitHub Actions**. After that, every push that changes a notebook

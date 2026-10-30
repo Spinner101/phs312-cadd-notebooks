@@ -59,13 +59,23 @@ HP-15C, HP 35s, TI-30XS MultiView, TI-84 Plus CE and Casio fx-991EX, and a
 
 ## Interactive apps (no Colab needed)
 
-Some notebooks are also available as interactive web apps that run entirely in your browser: nothing to install, nothing sent
+The lecture notebooks and the Hansch activity are also available as interactive web apps that run entirely in your browser: nothing to install, nothing sent
 anywhere. Each has the notebook's tools, figures, calculation cards, concept checks and lab-report download.
 
 | Session | App |
 |---|---|
+| L22 · Computer-Aided Drug Design: An Overview | https://spinner101.github.io/phs312-cadd-notebooks/apps/L22/ |
 | L23 · Conformational Analysis I | https://spinner101.github.io/phs312-cadd-notebooks/apps/L23/ |
 | L24 · Conformational Analysis II | https://spinner101.github.io/phs312-cadd-notebooks/apps/L24/ |
+| L25 · Molecular Docking Studies I | https://spinner101.github.io/phs312-cadd-notebooks/apps/L25/ |
+| L26 · Molecular Docking Studies II | https://spinner101.github.io/phs312-cadd-notebooks/apps/L26/ |
+| L27 · De Novo Drug Design | https://spinner101.github.io/phs312-cadd-notebooks/apps/L27/ |
+| L28 · Exam 3 Review Session | https://spinner101.github.io/phs312-cadd-notebooks/apps/L28/ |
+| L29 · QSAR I | https://spinner101.github.io/phs312-cadd-notebooks/apps/L29/ |
+| L30 · QSAR II | https://spinner101.github.io/phs312-cadd-notebooks/apps/L30/ |
+| L29–L30 · Building a Hansch Equation (in-class activity) | https://spinner101.github.io/phs312-cadd-notebooks/apps/L29-L30-Hansch/ |
+| L31 · Bioisosterism | https://spinner101.github.io/phs312-cadd-notebooks/apps/L31/ |
+| L32 · Prodrugs | https://spinner101.github.io/phs312-cadd-notebooks/apps/L32/ |
 
 The first load takes 10–30 seconds. Download your lab report from the last tab before closing the tab. How the apps are built: `apps/README.md`.
 

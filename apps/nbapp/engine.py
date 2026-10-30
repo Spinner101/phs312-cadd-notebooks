@@ -3,11 +3,12 @@ and re-run any code cell with new form values, capturing figures, displayed Mark
 
 One Session per browser connection, so each student's answers, report and settings are separate.
 """
-import ast, base64, contextlib, io, json, re, sys, types
+import ast, base64, contextlib, html, io, json, re, sys, types
 
 import numpy  # noqa: F401  (the notebooks use numpy; listed so Shinylive bundles it)
 import matplotlib
 matplotlib.use("Agg")
+import matplotlib.artist
 import matplotlib.pyplot as plt
 
 # ---------------------------------------------------------------- stand-ins for IPython / ipywidgets
@@ -62,6 +63,8 @@ _install_stubs()
 
 # ---------------------------------------------------------------- notebook parsing
 PARAM = re.compile(r"^(\s*)(\w+)\s*=\s*(.+?)\s*#@param\s*(.*)$", re.M)
+# older notebooks mark editable lines with a comment instead of a form:  chosen = ["MRX", "piY"]   # <-- change these
+EDIT = re.compile(r"^(\s*)([A-Za-z_]\w*(?:\s*,\s*[A-Za-z_]\w*)*)\s*=\s*(.+?)\s*#\s*<--\s*(.*)$", re.M)
 
 
 def src(c):
@@ -110,6 +113,21 @@ def parse_params(s):
                     if mm:
                         p[k] = float(mm.group(1))
         out.append(p)
+    for m in EDIT.finditer(s):                      # "# <-- change" lines: one box per name, Python literal values
+        names = [n.strip() for n in m.group(2).split(",")]
+        try:
+            vals = ast.literal_eval("(%s,)" % m.group(3)) if len(names) > 1 else (ast.literal_eval(m.group(3)),)
+        except Exception:
+            continue
+        for n, v in zip(names, vals):
+            if isinstance(v, bool):
+                out.append(dict(name=n, default=v, kind="boolean", edit=True))
+            elif isinstance(v, (int, float)):
+                out.append(dict(name=n, default=v, kind="number", edit=True))
+            elif isinstance(v, str):
+                out.append(dict(name=n, default=v, kind="string", edit=True))
+            else:
+                out.append(dict(name=n, default=repr(v), kind="literal", edit=True))
     return out
 
 
@@ -118,9 +136,25 @@ def with_values(s, values):
     def rep(m):
         name = m.group(2)
         if name in values:
-            return "%s%s = %r" % (m.group(1), name, values[name])
+            v = values[name]
+            return "%s%s = %s" % (m.group(1), name, str(v) if isinstance(v, Raw) else repr(v))
         return m.group(0)
-    return PARAM.sub(rep, s)
+
+    def rep2(m):
+        names = [n.strip() for n in m.group(2).split(",")]
+        if not any(n in values for n in names):
+            return m.group(0)
+        old = ast.literal_eval("(%s,)" % m.group(3)) if len(names) > 1 else (ast.literal_eval(m.group(3)),)
+        parts = []
+        for n, o in zip(names, old):
+            v = values.get(n, o)
+            parts.append(str(v) if isinstance(v, Raw) else repr(v))
+        return "%s%s = %s" % (m.group(1), ", ".join(names), ", ".join(parts))
+    return EDIT.sub(rep2, PARAM.sub(rep, s))
+
+
+class Raw(str):
+    """A value typed as Python source (a list, dict ...): inserted into the cell as written."""
 
 
 # ---------------------------------------------------------------- a student's session
@@ -129,9 +163,8 @@ class Session:
         self.nb = json.load(open(nb_path, encoding="utf-8"))
         self.cells = self.nb["cells"]
         self.ns = {"__name__": "__main__"}
-        setup = next(c for c in self.cells if c["cell_type"] == "code" and
-                     ("Set-up" in src(c).split("\n")[0] or title_of(src(c)).startswith("0.1")))
-        self.setup_output = self.run(src(setup))
+        setup = next((c for c in self.cells if c["cell_type"] == "code" and is_setup(src(c))), None)
+        self.setup_output = self.run(src(setup)) if setup else None
 
     @property
     def gb(self):
@@ -166,7 +199,16 @@ class Session:
         out, err = io.StringIO(), ""
         with contextlib.redirect_stdout(out):
             try:
-                exec(compile(code, "<cell>", "exec"), self.ns)
+                tree = ast.parse(code)
+                last = tree.body[-1] if tree.body and isinstance(tree.body[-1], ast.Expr) else None
+                if last is not None:
+                    tree.body = tree.body[:-1]
+                exec(compile(tree, "<cell>", "exec"), self.ns)
+                if last is not None:
+                    val = eval(compile(ast.Expression(last.value), "<cell>", "eval"), self.ns)
+                    if val is not None and not isinstance(val, matplotlib.artist.Artist) and not (
+                            isinstance(val, (list, tuple)) and val and isinstance(val[0], matplotlib.artist.Artist)):
+                        _SHOWN.append(val)
             except Exception as e:
                 err = "%s: %s" % (type(e).__name__, e)
         if plt.get_fignums():
@@ -177,7 +219,19 @@ class Session:
                 shown.append(o)
             elif isinstance(o, str):
                 shown.append(("md", o))
+            elif hasattr(o, "_repr_html_"):
+                try:
+                    shown.append(("html", '<div class="nbtable">%s</div>' % o._repr_html_()))
+                except Exception:
+                    shown.append(("html", "<pre>%s</pre>" % html.escape(repr(o))))
+            elif not isinstance(o, tuple):
+                shown.append(("html", "<pre>%s</pre>" % html.escape(repr(o))))
         return dict(figures=figs, shown=shown, stdout=out.getvalue(), error=err)
+
+
+def is_setup(s):
+    first = s.split("\n")[0]
+    return bool(re.search(r"(?i)set-?up\b|run this (cell )?first", first)) or title_of(s).startswith("0.1")
 
 
 def png_uri(b):
